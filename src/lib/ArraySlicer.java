@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author DIALLO Abdoul Mouctar <https://github.com/abdoulmouctard>
+ * MIT LICENCE
+ */
 public class ArraySlicer {
 
     public Collection<Collection<?>> partition(Collection<?> collection, int sectionSize) {
@@ -12,10 +16,16 @@ public class ArraySlicer {
         if (collection == null) return null;
         if (collection.isEmpty() || sectionSize <= 0) return Collections.emptyList();
 
-        return compute(sectionSize, collectionToList(collection));
+        if (sectionSize >= collection.size()) {
+            List<Collection<?>> result = new ArrayList<>();
+            result.add(new ArrayList<>(collection));
+            return result;
+        }
+
+        return compute(collectionToList(collection), sectionSize);
     }
 
-    private Collection<Collection<?>> compute(int sectionSize, List<?> list) {
+    private Collection<Collection<?>> compute(List<?> list, int sectionSize) {
         List<Collection<?>> result = new ArrayList<>();
         int numberOfPeaces = list.size() / sectionSize + (list.size() % sectionSize == 0 ? 0 : 1);
 

@@ -80,13 +80,20 @@ public class ArraySlicerTest {
         slicer.partition(list, size).forEach(element -> assertTrue(element.size() <= size));
     }
 
+    @Test
+    public void assertSubCollectionsSizeIsOneWhenSectionSizeGreaterThanInputElementsSize() {
+        List<?> list = Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9);
+        int size = list.size() + 1;
+        slicer.partition(list, size).forEach(element -> assertTrue(size >= element.size()));
+    }
+
 
     @Test
     public void BigTest__ONE() {
 
         // partition([1,2,3,4,5], 2) retourne: [ [1,2], [3,4], [5] ]
 
-        List<?> list = Arrays.asList(1, 2, 3, 5);
+        List<?> list = Arrays.asList(1, 2, 3, 4, 5);
 
         List<Collection<?>> expected = new ArrayList<>();
         expected.add(Arrays.asList(1, 2));
@@ -102,7 +109,7 @@ public class ArraySlicerTest {
 
         // partition([1,2,3,4,5], 3) retourne: [ [1,2,3], [4,5] ]
 
-        List<?> list = Arrays.asList(1, 2, 3, 5);
+        List<?> list = Arrays.asList(1, 2, 3, 4, 5);
 
         List<Collection<?>> expected = new ArrayList<>();
         expected.add(Arrays.asList(1, 2, 3));
@@ -115,7 +122,7 @@ public class ArraySlicerTest {
     @Test
     public void BigTest__THREE() {
         // partition([1,2,3,4,5], 1) retourne: [ [1], [2], [3], [4], [5] ]
-        List<?> list = Arrays.asList(1, 2, 3, 5);
+        List<?> list = Arrays.asList(1, 2, 3, 4, 5);
 
         List<Collection<?>> expected = new ArrayList<>();
         expected.add(Collections.singletonList(1));
